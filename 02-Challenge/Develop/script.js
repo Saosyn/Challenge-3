@@ -1,4 +1,4 @@
-var charLength = 8;
+var characterLength = 8;
 var charArr = [];
 
 var specCharArr = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '<', '>', '?', '/', ';', ':'];
@@ -9,45 +9,57 @@ var numArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-function generatePassword() {
-  console.log("hey! you clicked the button");
-
-// 1.Prompt user for the password criteria
-//  a. password length 8-128
-//  b. include lowercase, uppercase, numeric and/or special char
-// 2.Validate the input
-// 3. Gerate password based on criteria
-
-
-// 4. display the generated password on the page
-  return "genterated password will go here";
-}
-function getPrompts(){
-  charLength = parseInt(prompt("How many characters would you like to use? Between 8 and 128."))
-
-  if(isNaN(charLength) || charLength < 8 || charLength > 128)
-    alert("Character length must be between 8 and 128. Please enter again");
-    return false;
-}
-  if (confirm("would you like lowercase letters?")) {
-    choiceArr = chouceArr.concat(lowerCaseArr);
-  }
-  if (confirm("would you like uppercase letters?")) {
-    choiceArr = chouceArr.concat(upperCaseArr);
-  }
-  if (confirm("would you like numeric characters?")) {
-    choiceArr = chouceArr.concat(numArr);
-  }
-  if (confirm("would you like special characters?")) {
-    choiceArr = chouceArr.concat(lowerCaseArr);
-  }
-// Write password to the #password input
-
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-}
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+function writePassword() {
+  var correctPrompts = getPrompts();
+  var passwordText = document.querySelector("#password");
+
+  if(correctPrompts) {
+    var newPassword = generatePassword();
+    passwordText.value = newPassword;
+  } else {
+    passwordText.value = "";
+  }
+  
+}
+
+function generatePassword() {
+  // console.log("hey! you clicked the button");
+  var password = "";
+  for(var i = 0; i < characterLength; i++) {
+    var randomIndex = Math.floor(Math.random() * choiceArr.Length);
+    password = password = choiceArr[randomIndex];
+  }
+  return password;
+
+}
+function getPrompts(){
+  choiceArr = [];
+  charLength = parseInt(prompt("How many characters would you like to use? Between 8 and 128."));
+
+  if(isNaN(characterLength) || characterLength < 8 || characterLength > 128) {
+    alert("Character length must be between a number between 8 and 128. Please enter again");
+    return false;
+  }
+  if (confirm("would you like lowercase letters?")) {
+    choiceArr = choiceArr.concat(lowerCaseArr);
+  }
+  if (confirm("would you like uppercase letters?")) {
+    choiceArr = choiceArr.concat(upperCaseArr);
+  }
+  if (confirm("would you like numeric characters?")) {
+    choiceArr = choiceArr.concat(numArr);
+  }
+  if (confirm("would you like special characters?")) {
+    choiceArr = choiceArr.concat(specCharArr);
+  }
+  return true;
+}
+
+  
+// Write password to the #password input
+
+
+
